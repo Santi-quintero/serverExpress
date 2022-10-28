@@ -21,7 +21,7 @@ var Game = (function () {
             return this.tratarError("El numero debe de tener 4 digitos");
         }
         if (new Set(numero).size !== 4) {
-            return this.tratarError("El numero no debe de tener digitos repetidos");
+            return this.tratarError("El numero no debe de tener digitos repetidos y deben ser del 1 al 9");
         }
         if (isNaN(Number(numero))) {
             return this.tratarError("El dato debe ser un numero");
@@ -42,10 +42,19 @@ var Game = (function () {
             }
         }
         this.intentos++;
-        return "".concat(numero, " tiene ").concat(fijas, " fijas, ").concat(picas, " picas");
+        if (fijas == 4) {
+            return "Felicidades, adivinaste el numero en ".concat(this.intentos, " intentos");
+        }
+        else {
+            return "".concat(numero, " tiene ").concat(fijas, " fijas, ").concat(picas, " picas");
+        }
     };
     Game.prototype.tratarError = function (message) {
         return message;
+    };
+    Game.prototype.reiniciarJuego = function () {
+        this.numero = this.generateNumber();
+        this.intentos = 0;
     };
     return Game;
 }());

@@ -3,17 +3,20 @@ import { GameController } from "../game/gameController";
 
 
 const router = Router();
-
-router.get('/',(rep: Request, res: Response)=>{
+const gameController = new GameController();
+router.get('/',(req: Request, res: Response)=>{
     res.send('Hola mundo')
     
 
 })
-router.get('/send/:number',(rep: Request, res: Response)=>{
-    console.log(rep.params.number)
+router.get('/send/:number',(req: Request, res: Response)=>{
+    console.log(req.params.number)
     res.send('Hola mundo2')
     
-
+})
+router.get('/play/:number',(req: Request, res: Response)=>{
+    let numero = req.params.number
+    res.send(gameController.play(numero))
 })
 
 export default router;

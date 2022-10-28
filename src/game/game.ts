@@ -22,7 +22,7 @@ class Game {
         return this.tratarError("El numero debe de tener 4 digitos");
       }
       if (new Set(numero).size !== 4) {
-        return this.tratarError("El numero no debe de tener digitos repetidos");
+        return this.tratarError("El numero no debe de tener digitos repetidos y deben ser del 1 al 9");
       }
       if (isNaN(Number(numero))) {
         return this.tratarError("El dato debe ser un numero");
@@ -44,14 +44,22 @@ class Game {
       }
     }
     this.intentos++;
-    return `${numero} tiene ${fijas} fijas, ${picas} picas`;
+
+    if (fijas ==4) {
+      return `Felicidades, adivinaste el numero en ${this.intentos} intentos`
+    }else{
+      return `${numero} tiene ${fijas} fijas, ${picas} picas`;
+    }
   }
 
   tratarError(message: string): string{
     return message;
   }
+
+  reiniciarJuego(): void{
+    this.numero = this.generateNumber();
+    this.intentos = 0;
+  }
+ 
 }
 export {Game};
-
-
-  
