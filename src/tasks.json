@@ -1,13 +1,1 @@
-[
-   
-    {
-        "id": 6,
-        "description": "hola mundo",
-        "status": "pending"
-    },
-    {
-        "id": 7,
-        "description": "hola mundo",
-        "status": "pending"
-    }
-]
+[{"id":"e03843b7-623a","task":[{"id":1,"description":"tender cama de mi hermno","estimation":2,"completed":false}]},{"id":"e03843b7-623a-asdasd","task":[{"id":1,"description":"sacar el perro","estimation":5,"completed":false},{"id":2,"description":"sacar el perro 2","estimation":4,"completed":false},{"id":3,"description":"darle de comer a los perros","estimation":4,"completed":false},{"id":4,"description":"darle de comer a los perros","estimation":4,"completed":false},{"id":5,"description":"darle de comer a los perros","estimation":4,"completed":false}]}]
