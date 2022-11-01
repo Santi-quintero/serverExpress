@@ -8,9 +8,11 @@ export default  class Server{
 
     constructor(private port : number){
         this.app= express();
+        this.settings();
+        this.router();
     }
 
-    public Settings(){
+    public settings(){
         this.app.use(express.json())
        
     }

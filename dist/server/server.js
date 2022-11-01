@@ -8,8 +8,10 @@ class Server {
     constructor(port) {
         this.port = port;
         this.app = express();
+        this.settings();
+        this.router();
     }
-    Settings() {
+    settings() {
         this.app.use(express.json());
     }
     router() {

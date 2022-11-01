@@ -98,6 +98,11 @@ class ToDoListController {
         const json_tasks2 = JSON.stringify(this.tasksUsu);
         fs.writeFileSync("./src/tasks.json", json_tasks2, "utf-8");
     }
+    getUsers() {
+        const json_tasks = fs.readFileSync("./src/tasks.json", "utf-8");
+        let usuarios = JSON.parse(json_tasks);
+        return usuarios;
+    }
 }
 exports.ToDoListController = ToDoListController;
 //# sourceMappingURL=toDoListController.js.map
