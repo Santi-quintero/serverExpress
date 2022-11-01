@@ -1,14 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GameController = void 0;
-var game_1 = require("./game");
-var GameController = (function () {
-    function GameController() {
+const game_1 = require("./game");
+class GameController {
+    constructor() {
         this.game = new game_1.Game();
     }
-    GameController.prototype.play = function (numero) {
+    play(numero) {
         console.log("numero es:" + this.game.numero);
-        var result = this.game.adivinarNumero(numero);
+        let result = this.game.adivinarNumero(numero);
         if (result.includes('Felicidades')) {
             this.game.reiniciarJuego();
         }
@@ -16,11 +16,10 @@ var GameController = (function () {
             return this.pista();
         }
         return result;
-    };
-    GameController.prototype.pista = function () {
-        return "Pista! El numero en la posicion 3 es: ".concat(this.game.numero[2]);
-    };
-    return GameController;
-}());
+    }
+    pista() {
+        return `Pista! El numero en la posicion 3 es: ${this.game.numero[2]}`;
+    }
+}
 exports.GameController = GameController;
 //# sourceMappingURL=gameController.js.map

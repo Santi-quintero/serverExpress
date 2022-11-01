@@ -1,13 +1,1 @@
-[
-   
-    {
-        "id": 6,
-        "description": "hola mundo",
-        "status": "pending"
-    },
-    {
-        "id": 7,
-        "description": "hola mundo",
-        "status": "pending"
-    }
-]
+[{"id":"SADASDsad","task":[{"id":1,"description":"hola mundo","estimation":2,"completed":false},{"id":2,"description":"hola mundo 2","estimation":22,"completed":false}],"endTask":[]},{"id":"santiago","task":[{"id":1,"description":"darle comida a las mascotas","estimation":22,"completed":false},{"id":1,"description":"Bañar a los perros","estimation":4,"completed":false}],"endTask":[]}]

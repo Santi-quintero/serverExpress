@@ -1,25 +1,26 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var express = require("express");
-var router_1 = require("../router/router");
-var Server = (function () {
-    function Server(port) {
+const express = require("express");
+const router_1 = require("../router/router");
+const path = require('path');
+const morgan = require('morgan');
+class Server {
+    constructor(port) {
         this.port = port;
         this.app = express();
     }
-    Server.prototype.FormData = function () {
+    Settings() {
         this.app.use(express.json());
-    };
-    Server.prototype.router = function () {
-        this.app.use(router_1.default);
-    };
-    Server.prototype.start = function () {
+    }
+    router() {
+        this.app.use(router_1.router);
+    }
+    start() {
         this.app.listen(this.port);
-    };
-    Server.init = function (port) {
+    }
+    static init(port) {
         return new Server(port);
-    };
-    return Server;
-}());
+    }
+}
 exports.default = Server;
 //# sourceMappingURL=server.js.map

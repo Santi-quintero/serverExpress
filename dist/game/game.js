@@ -1,22 +1,22 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Game = void 0;
-var Game = (function () {
-    function Game() {
+class Game {
+    constructor() {
         this.numero = this.generateNumber();
         this.intentos = 0;
     }
-    Game.prototype.generateNumber = function () {
-        var numero = [];
+    generateNumber() {
+        let numero = [];
         while (numero.length < 4) {
-            var digito = Math.floor(Math.random() * 10);
+            let digito = Math.floor(Math.random() * 10);
             if (numero.indexOf(digito) === -1) {
                 numero.push(digito);
             }
         }
         return numero.join("");
-    };
-    Game.prototype.adivinarNumero = function (numero) {
+    }
+    adivinarNumero(numero) {
         if (numero.length !== 4) {
             return this.tratarError("El numero debe de tener 4 digitos");
         }
@@ -27,13 +27,13 @@ var Game = (function () {
             return this.tratarError("El dato debe ser un numero");
         }
         return this.validarNumero(numero);
-    };
-    Game.prototype.validarNumero = function (numero) {
-        var fijas = 0;
-        var picas = 0;
-        for (var i = 0; i < numero.length; i++) {
-            var numeroUsuario = numero[i];
-            var numeroAleatorio = this.numero[i];
+    }
+    validarNumero(numero) {
+        let fijas = 0;
+        let picas = 0;
+        for (let i = 0; i < numero.length; i++) {
+            let numeroUsuario = numero[i];
+            let numeroAleatorio = this.numero[i];
             if (numeroUsuario === numeroAleatorio) {
                 fijas++;
             }
@@ -43,20 +43,19 @@ var Game = (function () {
         }
         this.intentos++;
         if (fijas == 4) {
-            return "Felicidades, adivinaste el numero en ".concat(this.intentos, " intentos");
+            return `Felicidades, adivinaste el numero en ${this.intentos} intentos`;
         }
         else {
-            return "".concat(numero, " tiene ").concat(fijas, " fijas, ").concat(picas, " picas");
+            return `${numero} tiene ${fijas} fijas, ${picas} picas`;
         }
-    };
-    Game.prototype.tratarError = function (message) {
+    }
+    tratarError(message) {
         return message;
-    };
-    Game.prototype.reiniciarJuego = function () {
+    }
+    reiniciarJuego() {
         this.numero = this.generateNumber();
         this.intentos = 0;
-    };
-    return Game;
-}());
+    }
+}
 exports.Game = Game;
 //# sourceMappingURL=game.js.map

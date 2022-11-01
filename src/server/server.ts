@@ -1,5 +1,8 @@
 import express = require('express')
-import router from '../router/router';
+import {router} from '../router/router';
+
+const path = require('path')
+const morgan = require('morgan')
 export default  class Server{
     public app: express.Application;
 
@@ -7,8 +10,9 @@ export default  class Server{
         this.app= express();
     }
 
-    public FormData(){
-         this.app.use(express.json())
+    public Settings(){
+        this.app.use(express.json())
+       
     }
     router(){
         this.app.use(router)
