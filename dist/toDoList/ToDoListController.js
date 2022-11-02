@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ToDoListController = void 0;
 const { v4: uuidv4 } = require("uuid");
+const pushId = require('unique-push-id');
 const fs = require("fs");
 class ToDoListController {
     constructor() {
@@ -12,35 +13,33 @@ class ToDoListController {
         const usuarios = JSON.parse(json_tasks);
         this.tasksUsu = usuarios;
     }
+    addUsuario(description, estimation) {
+        let newTask = {
+            id: pushId(),
+            description: description,
+            estimation: estimation,
+            completed: false,
+        };
+        this.tasks.push(newTask);
+        this.tasksUsu.push({ id: uuidv4(), task: this.tasks, endTask: [] });
+        const json_tasks2 = JSON.stringify(this.tasksUsu);
+        fs.writeFileSync("./src/tasks.json", json_tasks2, "utf-8");
+    }
     addTask(id, description, estimation) {
         const json_tasks = fs.readFileSync("./src/tasks.json", "utf-8");
         const usuarios = JSON.parse(json_tasks);
         let index = usuarios.findIndex((usuario) => usuario.id === id);
-        if (index === -1) {
-            let newTask = {
-                id: this.tasks.length + 1,
-                description: description,
-                estimation: estimation,
-                completed: false,
-            };
-            this.tasks.push(newTask);
-            this.tasksUsu.push({ id: id, task: this.tasks, endTask: [] });
-            const json_tasks2 = JSON.stringify(this.tasksUsu);
-            fs.writeFileSync("./src/tasks.json", json_tasks2, "utf-8");
-        }
-        else {
-            this.tasks = this.tasksUsu[index].task;
-            let newTask = {
-                id: this.tasks.length + 1,
-                description: description,
-                estimation: estimation,
-                completed: false,
-            };
-            this.tasks.push(newTask);
-            this.tasksUsu[index].task = this.tasks;
-            const json_tasks2 = JSON.stringify(this.tasksUsu);
-            fs.writeFileSync("./src/tasks.json", json_tasks2, "utf-8");
-        }
+        this.tasks = this.tasksUsu[index].task;
+        let newTask = {
+            id: pushId(),
+            description: description,
+            estimation: estimation,
+            completed: false,
+        };
+        this.tasks.push(newTask);
+        this.tasksUsu[index].task = this.tasks;
+        const json_tasks2 = JSON.stringify(this.tasksUsu);
+        fs.writeFileSync("./src/tasks.json", json_tasks2, "utf-8");
     }
     deleteTask(id, idTask) {
         const json_tasks = fs.readFileSync("./src/tasks.json", "utf-8");

@@ -1,6 +1,7 @@
 import { ToDoList } from "./toDoList";
 
 const { v4: uuidv4 } = require("uuid");
+const pushId = require('unique-push-id');
 const fs = require("fs");
 
 
@@ -15,6 +16,19 @@ export class ToDoListController {
     const usuarios = JSON.parse(json_tasks);
     this.tasksUsu = usuarios;
   }
+
+  public addUsuario(description: string, estimation: number){
+    let newTask = {
+      id: pushId(),
+      description: description,
+      estimation: estimation,
+      completed: false,
+    };
+    this.tasks.push(newTask);
+    this.tasksUsu.push({id: uuidv4(), task:this.tasks, endTask: []});
+    const json_tasks2 = JSON.stringify(this.tasksUsu);
+    fs.writeFileSync("./src/tasks.json", json_tasks2, "utf-8");
+}
   
   public addTask(id: string, description: string, estimation: number) {
     const json_tasks = fs.readFileSync("./src/tasks.json", "utf-8");
@@ -22,25 +36,9 @@ export class ToDoListController {
     let index = usuarios.findIndex(
       (usuario: { id: string }) => usuario.id === id
     );
-    if (index === -1) {
-      let newTask = {
-        id: this.tasks.length + 1,
-        description: description,
-        estimation: estimation,
-        completed: false,
-      };
-      this.tasks.push(newTask);
-      // let newTaskObject = {
-      //   id: id,
-      //   task: this.tasks,
-      // };
-      this.tasksUsu.push({id: id, task:this.tasks, endTask: []});
-      const json_tasks2 = JSON.stringify(this.tasksUsu);
-      fs.writeFileSync("./src/tasks.json", json_tasks2, "utf-8");
-    } else {
       this.tasks = this.tasksUsu[index].task;
       let newTask = {
-        id: this.tasks.length + 1,
+        id: pushId(),
         description: description,
         estimation: estimation,
         completed: false,
@@ -49,10 +47,9 @@ export class ToDoListController {
       this.tasksUsu[index].task = this.tasks;
       const json_tasks2 = JSON.stringify(this.tasksUsu);
       fs.writeFileSync("./src/tasks.json", json_tasks2, "utf-8");
-    }
   }
 
-  public deleteTask(id: string, idTask: number){
+  public deleteTask(id: string, idTask: string){
     const json_tasks = fs.readFileSync("./src/tasks.json", "utf-8");
     let usuarios = JSON.parse(json_tasks);
     let index = usuarios.findIndex(
@@ -60,7 +57,7 @@ export class ToDoListController {
     );
     this.tasks= this.tasksUsu[index].task;
     let indexTask = this.tasks.findIndex(
-      (task: {id: number})=> task.id === idTask
+      (task: {id: string})=> task.id === idTask
     );
     this.tasks.splice(indexTask, 1);
     this.tasksUsu[index].task = this.tasks
@@ -68,7 +65,7 @@ export class ToDoListController {
     fs.writeFileSync("./src/tasks.json", json_tasks2, "utf-8");
   }
 
-  public editTask(id:string, idTask:number, description:string, estimation:number){
+  public editTask(id:string, idTask:string, description:string, estimation:number){
     const json_tasks = fs.readFileSync("./src/tasks.json", "utf-8");
     let usuarios = JSON.parse(json_tasks);
     let index = usuarios.findIndex(
@@ -76,7 +73,7 @@ export class ToDoListController {
     );
     this.tasks= this.tasksUsu[index].task;
     let indexTask = this.tasks.findIndex(
-      (task: {id: number})=> task.id === idTask
+      (task: {id: string})=> task.id === idTask
     );
     this.tasks[indexTask].description= description;
     this.tasks[indexTask].estimation= estimation;
@@ -95,7 +92,7 @@ export class ToDoListController {
     return this.usuTask
   }
 
-  public completedTask(id: string, idTask: number){
+  public completedTask(id: string, idTask: string){
     const json_tasks = fs.readFileSync("./src/tasks.json", "utf-8");
     let usuarios = JSON.parse(json_tasks);
     let index = usuarios.findIndex(
@@ -103,7 +100,7 @@ export class ToDoListController {
     );
     this.tasks= this.tasksUsu[index].task;
     let indexTask = this.tasks.findIndex(
-      (task: {id: number})=> task.id === idTask
+      (task: {id: string})=> task.id === idTask
     );
     this.tasks[indexTask].completed = true
     this.tasksUsu[index].task = this.tasks;
@@ -115,7 +112,7 @@ export class ToDoListController {
 
 
   //pasa tarea completada de nuevo a por realizar
-  public uncompletedTask(id: string, idTask:Number){
+  public uncompletedTask(id: string, idTask:string){
     const json_tasks = fs.readFileSync("./src/tasks.json", "utf-8");
     let usuarios = JSON.parse(json_tasks);
     let index = usuarios.findIndex(
@@ -123,7 +120,7 @@ export class ToDoListController {
     );
     this.tasks= this.tasksUsu[index].task;
     let indexTask = this.tasksUsu[index].endTask.findIndex(
-      (task: {id: number})=> task.id === idTask
+      (task: {id: string})=> task.id === idTask
     );
     this.tasksUsu[index].endTask[indexTask].completed = false
     this.tasks.push(this.tasksUsu[index].endTask[indexTask]);
