@@ -47,6 +47,7 @@ export class ToDoListController {
       this.tasksUsu[index].task = this.tasks;
       const json_tasks2 = JSON.stringify(this.tasksUsu);
       fs.writeFileSync("./src/tasks.json", json_tasks2, "utf-8");
+
   }
 
   public deleteTask(id: string, idTask: string){
