@@ -20,21 +20,30 @@ router.post("/usuario-tasks/user", (req, res) => {
     if (!description) {
         res.status(400).send({ error: "Task is required" });
     }
-    toDoListTask.addUsuario(description, estimation);
-    res.json({ message: "User Saved" });
+    const idUsuario = toDoListTask.addUsuario(description, estimation);
+    let json = {
+        message: 'User saved',
+        idUsuario: idUsuario
+    };
+    res.json(json);
 });
 router.post("/usuario-tasks", (req, res) => {
     const { id, description, estimation } = req.body;
     if (!description) {
         res.status(400).send({ error: "Task is required" });
     }
-    toDoListTask.addTask(id, description, estimation);
-    res.json({ message: "Task Saved" });
+    res.json(toDoListTask.addTask(id, description, estimation));
 });
 router.delete("/usuario-tasks/:id/:idTask", (req, res) => {
     const { id, idTask } = req.params;
-    toDoListTask.deleteTask(id, idTask);
-    res.json({ message: "Task deleted" });
+    if (!id) {
+        res.status(400).send({ error: "id is required type string" });
+    }
+    if (!idTask) {
+        res.status(400).send({ error: "idTask is required type number" });
+    }
+    ;
+    res.json(toDoListTask.deleteTask(id, idTask));
 });
 router.put("/usuario-tasks/:id/:idTask", (req, res) => {
     const { id, idTask } = req.params;
@@ -60,15 +69,13 @@ router.get("/usuario-tasks/:string", (req, res) => {
 });
 router.patch("/usuario-tasks/completed/:id/:idTask", (req, res) => {
     const { id, idTask } = req.params;
-    console.log(id, idTask);
     if (!id) {
         res.status(400).send({ error: "id is required type string" });
     }
     if (!idTask) {
         res.status(400).send({ error: "idTask is required type number" });
     }
-    toDoListTask.completedTask(id, idTask);
-    res.json({ message: "Task Completed" });
+    res.json(toDoListTask.completedTask(id, idTask));
 });
 router.patch("/usuario-tasks/pending/:id/:idTask", (req, res) => {
     const { id, idTask } = req.params;

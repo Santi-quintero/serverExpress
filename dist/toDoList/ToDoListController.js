@@ -14,6 +14,7 @@ class ToDoListController {
         this.tasksUsu = usuarios;
     }
     addUsuario(description, estimation) {
+        let idgenerade = uuidv4();
         let newTask = {
             id: pushId(),
             description: description,
@@ -21,9 +22,10 @@ class ToDoListController {
             completed: false,
         };
         this.tasks.push(newTask);
-        this.tasksUsu.push({ id: uuidv4(), task: this.tasks, endTask: [] });
+        this.tasksUsu.push({ id: idgenerade, task: this.tasks, endTask: [] });
         const json_tasks2 = JSON.stringify(this.tasksUsu);
         fs.writeFileSync("./src/tasks.json", json_tasks2, "utf-8");
+        return idgenerade;
     }
     addTask(id, description, estimation) {
         const json_tasks = fs.readFileSync("./src/tasks.json", "utf-8");
@@ -40,6 +42,7 @@ class ToDoListController {
         this.tasksUsu[index].task = this.tasks;
         const json_tasks2 = JSON.stringify(this.tasksUsu);
         fs.writeFileSync("./src/tasks.json", json_tasks2, "utf-8");
+        return (this.tasksUsu[index]);
     }
     deleteTask(id, idTask) {
         const json_tasks = fs.readFileSync("./src/tasks.json", "utf-8");
@@ -51,6 +54,7 @@ class ToDoListController {
         this.tasksUsu[index].task = this.tasks;
         const json_tasks2 = JSON.stringify(this.tasksUsu);
         fs.writeFileSync("./src/tasks.json", json_tasks2, "utf-8");
+        return this.tasksUsu;
     }
     editTask(id, idTask, description, estimation) {
         const json_tasks = fs.readFileSync("./src/tasks.json", "utf-8");
@@ -63,6 +67,7 @@ class ToDoListController {
         this.tasksUsu[index].task = this.tasks;
         const json_tasks2 = JSON.stringify(this.tasksUsu);
         fs.writeFileSync("./src/tasks.json", json_tasks2, "utf-8");
+        return this.tasksUsu[index];
     }
     getUsuTask(id) {
         const json_tasks = fs.readFileSync("./src/tasks.json", "utf-8");
@@ -83,6 +88,7 @@ class ToDoListController {
         this.tasks.splice(indexTask, 1);
         const json_tasks2 = JSON.stringify(this.tasksUsu);
         fs.writeFileSync("./src/tasks.json", json_tasks2, "utf-8");
+        return this.tasksUsu;
     }
     uncompletedTask(id, idTask) {
         const json_tasks = fs.readFileSync("./src/tasks.json", "utf-8");
@@ -96,6 +102,7 @@ class ToDoListController {
         this.tasksUsu[index].endTask.splice(indexTask, 1);
         const json_tasks2 = JSON.stringify(this.tasksUsu);
         fs.writeFileSync("./src/tasks.json", json_tasks2, "utf-8");
+        return this.tasksUsu;
     }
     getUsers() {
         const json_tasks = fs.readFileSync("./src/tasks.json", "utf-8");
