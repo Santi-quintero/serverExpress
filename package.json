@@ -16,7 +16,8 @@
     "ejs": "^3.1.8",
     "express": "^4.18.2",
     "morgan": "^1.10.0",
-    "unique-push-id": "^1.0.2"
+    "unique-push-id": "^1.0.2",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",

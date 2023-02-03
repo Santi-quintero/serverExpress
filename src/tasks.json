@@ -1,14 +1,1 @@
-[
-    {
-        "id": "ab909585-c461-4e6c-8752-990d88f2a406",
-        "task": [
-            {
-                "id": "-NFzI_4XUWuaNxZsAzy8",
-                "description": "tender cama",
-                "estimation": 4,
-                "completed": false
-            }
-        ],
-        "endTask": []
-    }
-]
+[{"id":"ab909585-c461-4e6c-8752-990d88f2a406","task":[{"id":"-NNNkeAOVNiw7vanJHaM","description":"estudiar 2","estimation":"5","completed":false}],"endTask":[{"id":"-NNNkQ_ss5zEyYW7Jie3","description":"estudiar","estimation":"5","completed":true}]}]
